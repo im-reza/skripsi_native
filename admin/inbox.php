@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+            <table class="align-middle mb-0 table table-bordered table-striped table-hover">
               <thead>
                 <tr>
                   <th class="text-center">#</th>
@@ -33,7 +33,8 @@
                   <th>No Surat</th>
                   <th class="text-center">Perihal</th>
                   <th class="text-center">Catatan</th>
-                  <th class="text-center">Actions</th>
+                  <th class="text-center">File</th>
+                  <th class="text-center">Dibaca</th>
                 </tr>
               </thead>
               <tbody  id="tab_inbox">

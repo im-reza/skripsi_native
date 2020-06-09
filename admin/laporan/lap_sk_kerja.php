@@ -26,7 +26,7 @@ while ($data=mysqli_fetch_array($sql)) {
 		<div class="col-md-4" style="text-align: center; font-size: 14px;font-family: sans-serif;margin-top: 3%;">
 			Dikeluarkan di Banjarmasin
 			<br>
-			Pada tanggal, <?php echo date("d M Y",strtotime($tgl_surat)) ?>
+			Pada tanggal, <?php echo tgl_indo(date("D d-m-Y",strtotime($tgl_surat))) ?>
 		</div>
 	</div>
 <?php } ?>

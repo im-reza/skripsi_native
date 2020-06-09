@@ -39,7 +39,8 @@
     $user=$_SESSION['nama'];
     $query=mysqli_query($con,"select * from user where nama='$user'");
     while ($d=mysqli_fetch_array($query)) {
-
+      $cuti=$d["status_user"];
+      $username=$d['name'];
       ?>
       <center>
         <div class="col-md-8">
@@ -59,7 +60,7 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">Username</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                   </div>
                   <input type="text" class="form-control" name="username" readonly="" value="<?php echo $d['name'] ?>">
                 </div>
@@ -68,7 +69,7 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">Password</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                   </div>
                   <input type="password" class="form-control" name="password" placeholder="password.." onChange="cekPass()" required="">
                 </div>
@@ -77,7 +78,7 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">Ulangi Password</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                   </div>
                   <input type="password" class="form-control" name="repassword" placeholder="ulangi password.." onChange="cekPass()" required="">
                 </div>
@@ -86,7 +87,7 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">Nama</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                   </div>
                   <input type="text" class="form-control" name="nama" required="" value="<?php echo $d['nama'] ?>">
                 </div>
@@ -95,7 +96,7 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">NIP</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
                   </div>
                   <input type="text" class="form-control" name="nip" required="" value="<?php echo $d['nip'] ?>">
                 </div>
@@ -104,12 +105,21 @@
                 <label class="col-sm-4 col-form-label" style="text-align: left;">Telegram</label> :
                 <div class="input-group mb-1 col-sm-6">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-users"></i></span>
+                    <span class="input-group-text"><i class="fas fa-phone-square-alt"></i></span>
                   </div>
                   <input type="text" class="form-control" name="id_telegram" required="" value="<?php echo $d['id_telegram'] ?>">
                 </div>
               </div>
-              <button type="submit" name="submit" class="btn btn-success btn-sm" disabled="true" style="float: center;">Simpan</button>
+              <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label" style="text-align: left;">Kehadiran</label> :
+                <div class="input-group mb-1 col-sm-6">
+                  <select style="width: 100%" class="custom-select" id="status_user" name="status_user" required="">
+                    <option value="bekerja"<?php if($cuti=="bekerja") echo 'selected="selected"'; ?>>Bekerja</option>
+                    <option value="cuti"<?php if($cuti=="cuti") echo 'selected="selected"'; ?>>Cuti</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" name="submit" class="btn btn-success mt-2" disabled="true" style="float: center;">Simpan</button>
             </div>
           </form>
         </div>
@@ -122,6 +132,12 @@
   <?php 
   include_once '../assets/footer.php';  
   ?>
+
+  <script>
+    $(document).ready(function() {
+      $('#status_user').select2();
+    });
+  </script>
 
   <script>
     function cekPass()

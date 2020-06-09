@@ -23,6 +23,7 @@ if (isset($_REQUEST['submit'])) {
 	}
 	$secret_token = "1070076828:AAFr7XYh55CSvb5A6NUIyUfKU2_XdrgFVnk";
 	$tgl_s=$_POST['tgl_surat'];
+	$type=$_POST['type_surat'];
 	$tgl_srt=date("Y-m-d",strtotime($tgl_s));
 	$tgl_diterima=date("Y-m-d H:i:s");
 	$no_br=htmlspecialchars($_POST['no_surat']);
@@ -38,11 +39,13 @@ if (isset($_REQUEST['submit'])) {
 	$ukuran=$_FILES['file']['size'];
 	$dirUpload="../../file/";
 
-	$text='#-- *Untuk Kabag Tolong ada* --#
-	 Surat nomor *'.$no_br.'*,
-	 dari : *'.$pengirim.'*,
-	 Perihal : *'.$perihal.'*, 
+	$text='#-- *Surat Pemberitahuan* --#
+	Surat nomor *'.$no_br.'*,
+	dari : *'.$pengirim.'*,
+	Perihal : *'.$perihal.'*, 
+	arsip-bagpem.com/verif?='.$no_br.'
 	 #-- Harap segera diverifikasi ! --# ';
+	
 
 	$cek=mysqli_num_rows(mysqli_query($con,"select * from surat_masuk where no_surat='$no_br'"));
 
@@ -61,12 +64,12 @@ if (isset($_REQUEST['submit'])) {
 			if ($ukuran<21044070) {
 				sendMessage($telegram_id, $text, $secret_token);
 				move_uploaded_file($namasementara, $dirUpload.$namabaru);
-				$query=mysqli_query($con,"insert into surat_masuk values ('','$no_br','$tgl_srt','$pengirim','$perihal','0') ");
+				$query=mysqli_query($con,"insert into surat_masuk values ('','$no_br','$tgl_srt','$pengirim','$perihal','$type','0') ");
 				$queryfile=mysqli_query($con,"insert into file values ('','$no_br','$namabaru','$tgl_diterima')");
 				if ($queryfile) {
               # code...
 					$_SESSION['success']='<div class="alert alert-success alert-dismissible fade show" role="alert">
-					Berhasil menambahkan data no '.$no_br.', Selamat !
+					Berhasil menambahkan surat '.$type.' data no '.$no_br.', Selamat !
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>

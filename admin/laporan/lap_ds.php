@@ -5,7 +5,7 @@ $tgl_2=$_GET['tgl_akhir'];
 $no=1;
 ?>
 <h3 align="center">Data Disposisi</h3><br>
-<p align="center">Dari Tanggal <b><?php echo $tgl_f; ?></b> Sampai Tanggal <b><?php echo $tgl_2; ?></b></p>
+<p align="center">Dari Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_f))); ?></b> Sampai Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_2))); ?></b></p>
 <table class="table table-dark table-striped">
 	<thead>
 		<tr style="text-align: center;">

@@ -8,6 +8,8 @@
 </head>
 <body>
 	<div class="container">
+		<?php include '../../connections/connection_db.php';  include '../../connections/tgl_indo.php';
+			date_default_timezone_set('Asia/Jakarta'); ?>
 		<header>
 			<div class="row" style="margin-top: 2%">
 					<div class="col-md-2">

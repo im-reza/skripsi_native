@@ -43,24 +43,24 @@
       <div class="col-md-12">
         <div class="main-card mb-3 card">
           <center><div class="card-header"><?php echo $d['pengirim']; ?> | <?php echo $no ?> | <?php echo $d['perihal']; ?> | <?php echo $d['penerima']; ?> </div></center>
-          <div class="card-body">
+          <div class="card-body" style="color: green">
             <ul class="events">
               <li>
-                <time><?php echo date('D, d-m-Y, H:i',strtotime($tgl_surat)) ?></time> 
+                <time><?php echo tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_surat))) ?></time> 
                 <span><strong>Diterima & Diinput</strong>Admin</span><?php echo $admin; ?>
               </li>
               <?php if ($d['status']=='0'){
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i')."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i'))."</time> 
                 <span style='color:red'><strong>Belum Diverifikasi</strong>Kabag</span> ".$kabag."
                 </li> ";
               }else{
                 echo  "<li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_verif))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_verif)))."</time> 
                 <span><strong>Diverifikasi</strong>Kabag</span> ".$kabag."
                 </li> 
                 <li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_verif))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_verif)))."</time> 
                 <span><strong>Diteruskan kpd : ".$d['penerima']."</strong>Kabag<br> Catatan : ".$d['catatan']."</span> ".$kabag."
                 </li>
                 ";
@@ -68,44 +68,44 @@
               <?php if ($d['status_ds']=='0') {
                if ($d['penerima']=='kabag') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i')."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i'))."</time> 
                 <span style='color:red'><strong>Diterima namun Belum Dibaca</strong>".$d['penerima']."</span> ".$kabag."
                 </li>";
               }elseif ($d['penerima']=='admin') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i')."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i'))."</time> 
                 <span style='color:red'><strong>Diterima namun Belum Dibaca</strong>".$d['penerima']."</span> ".$admin."
                 </li>";
               }elseif ($d['penerima']=='kasubag kerjasama') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i')."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i'))."</time> 
                 <span style='color:red'><strong>Diterima namun Belum Dibaca</strong>".$d['penerima']."</span> ".$ks_kerjasama."
                 </li>";
               }else{
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i')."</time>  
+                <time>".tgl_indo(date('D, d-F-Y, H:i'))."</time>  
                 <span style='color:red'><strong>Diterima namun Belum Dibaca</strong>".$d['penerima']."</span> ".$kasubag."
                 </li>";
               }
             } elseif ($d['status_ds']=='1') {
               if ($d['penerima']=='kabag') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_dibaca))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_dibaca)))."</time> 
                 <span><strong>Diterima & Dibaca</strong>".$d['penerima']."</span> ".$kabag."
                 </li>";
               }elseif ($d['penerima']=='admin') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_dibaca))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_dibaca)))."</time> 
                 <span><strong>Diterima & Dibaca</strong>".$d['penerima']."</span> ".$admin."
                 </li>";
               }elseif ($d['penerima']=='kasubag kerjasama') {
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_dibaca))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_dibaca)))."</time> 
                 <span><strong>Diterima & Dibaca</strong>".$d['penerima']."</span> ".$ks_kerjasama."
                 </li>";
               }else{
                 echo "<li>
-                <time>".date('D, d-m-Y, H:i',strtotime($tgl_dibaca))."</time> 
+                <time>".tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_dibaca)))."</time> 
                 <span><strong>Diterima & Dibaca</strong>".$d['penerima']."</span> ".$kasubag."
                 </li>";
               }

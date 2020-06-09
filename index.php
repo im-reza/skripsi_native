@@ -63,6 +63,7 @@
                 $_SESSION['name']=$nm1;
                 $_SESSION['nama']="".$data['nama']."";
                 $_SESSION['jabatan']="".$data['jabatan']."";
+                $online=mysqli_query($con,"update user set online='1' where name='".$_SESSION['name']."' ");
                 header("location:admin/index.php");
             }              
         }else{

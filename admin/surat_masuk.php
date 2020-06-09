@@ -21,12 +21,34 @@
         </div>
         <div class="page-title-actions">
           <div class="d-inline-block dropdown">
-            <button type="button" data-target="#tambah_modal_sm" data-toggle="modal"  class="btn-shadow dropdown-toggle btn btn-success">
+            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-success">
               <span class="btn-icon-wrapper pr-2 opacity-7">
                 <i class="fas fa-pencil-alt fa-w-20"></i>
               </span>
               Add
             </button>
+            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a href='#' data-target="#tambah_modal_sm_pemberitahuan" data-toggle="modal" class="nav-link">
+                    <i class="nav-link-icon lnr-inbox"></i>
+                    <span>
+                      Surat Pemberitahuan
+                    </span>
+                    <div class="ml-auto badge badge-pill badge-success"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href='#' data-target="#tambah_modal_sm_undangan" data-toggle="modal" class="nav-link">
+                    <i class="nav-link-icon lnr-book"></i>
+                    <span>
+                      Surat Undangan
+                    </span>
+                    <div class="ml-auto badge badge-pill badge-success"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +99,7 @@
 
 
         <!-- tabel surat masuk load data dengan ajax -->
-        <div class="table-responsive table-bordered table-hover" id="data_table">
+        <div id="data_table">
 
         </div>
         <!-- tutup table -->
@@ -104,7 +126,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <a class="btn btn-danger btn-sm btn-ok">Ya, Hapus !</a>
+            <a class="btn btn-danger btn-ok">Ya, Hapus !</a>
           </div>
         </div>
       </div>
@@ -113,7 +135,7 @@
   <!-- tutup modal hapus -->
 
   <!-- modal tambah data surat masuk -->
-  <div class="modal bd-example-modal-lg" id="tambah_modal_sm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
+  <div class="modal bd-example-modal-lg" id="tambah_modal_sm_pemberitahuan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
   aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -143,6 +165,9 @@
             <label><strong>Perihal surat :</strong></label>
             <input type="text"class="form-control" name="perihal" id="perihal" placeholder="Perihal..." required>
           </div>
+          <div class="form-group col-md-6" hidden="">
+            <input type="text" class="form-control" name="type_surat" id="type_surat" value="pemberitahuan" required="">
+          </div>
           <div class="form-group">
             <label><strong>Opload File</strong></label>
             <input type="file"class="form-control-file" name="file" id="file" required>
@@ -157,16 +182,76 @@
   </div>
 </div> 
 </div>
-</div></div>
+</div>
+</div>
 <!-- end modal tambah data surat masuk -->
-
+<div class="modal bd-example-modal-lg" id="tambah_modal_sm_undangan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" 
+aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Tambah Surat Undangan :</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form method="POST" action="actions/aksi_tambah_acara.php" enctype="multipart/form-data">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label><strong>Nomor Surat Undangan :</strong></label>
+            <input type="text" class="form-control" name="no_surat" id="no_surat_u" placeholder="Nomor Berkas..." required>
+          </div>
+          <div class="form-group col-md-6">
+            <label><strong>Tanggal di surat :</strong></label>
+            <input type="date" class="date form-control" name="tgl_surat" id="tgl_surat_u" value="<?php echo date('Y-m-d') ?>" required="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label><strong>Pengirim Undangan :</strong></label>
+          <input type="text"class="form-control" name="pengirim" id="pengirim_u" placeholder="Pengirim..." required>
+        </div>
+        <div class="form-group">
+          <label><strong>Perihal Undangan :</strong></label>
+          <input type="text"class="form-control" name="perihal" id="perihal_u" placeholder="Perihal..." required>
+        </div>
+        <label><strong>Acara :</strong></label>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label><strong>Mulai :</strong></label>
+            <input type="datetime-local" class="form-control" name="start_event" id="start_u" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label><strong>Sampai :</strong></label>
+            <input type="datetime-local" class="date form-control" name="end_event" id="end_u" required="">
+          </div>
+        </div>
+        <div class="form-group">
+          <label><strong>Opload File Undangan :</strong></label>
+          <input type="file"class="form-control-file" name="file" id="file_u" required>
+        </div>
+      </div>
+      <div class="form-group col-md-6" hidden="">
+        <input type="text" class="form-control" name="type_surat" id="type_surat_u" value="undangan" required="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" name="submit" class="btn btn-primary">Tambah</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div> 
+</div>
+</div>
+</div>
 
 <!-- modal edit data surat masuk -->
 <div class="modal fade bd-example-modal-lg" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Surat :</h5>
+        <h5 class="modal-title">Edit Surat Pemberitahuan :</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -174,7 +259,7 @@
       <div class="modal-body">
         <form method="POST" action="actions/aksi_edit_sm.php" enctype="multipart/form-data">
           <div class="form-row">
-            <input type="text" class="form-control" name="id_sm_edt" id="id_sm" hidden="">
+            <input type="text" class="form-control" name="id_sm_edt" id="id_sm_edt" hidden="">
             <div class="form-group col-md-6">
               <label><strong>Nomor Surat :</strong></label>
               <input type="text" class="form-control" name="no_surat_edt" id="no_surat_edt" readonly="">
@@ -192,6 +277,9 @@
             <label><strong>Perihal surat :</strong></label>
             <input type="text"class="form-control" name="perihal_edt" id="perihal_edt" required>
           </div>
+          <div class="form-group col-md-6" hidden="">
+            <input type="text" class="form-control" name="type_surat_edt" value="pemberitahuan" required="">
+          </div>
           File Lama : <label name="file_lama_edt" id="file_lama_edt"></label>
           <div class="form-group">
             <label><strong>Atau Upload ulang File (PDF/JPG) :</strong></label>
@@ -207,7 +295,64 @@
   </div>
 </div> 
 <!-- end modal edit -->
-
+<div class="modal fade bd-example-modal-lg" id="edit_modal_u" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Surat Undangan :</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="actions/aksi_edit_acara.php" enctype="multipart/form-data">
+          <div class="form-row">
+            <input type="text" class="form-control" name="id_sm_edt" id="id_sm_u" hidden="">
+            <div class="form-group col-md-6">
+              <label><strong>Nomor Surat :</strong></label>
+              <input type="text" class="form-control" name="no_surat_edt" id="no_surat_edt_u" readonly="">
+            </div>
+            <div class="form-group col-md-6">
+              <label><strong>Tanggal di surat :</strong></label>
+              <input type="date" class="date form-control" name="tgl_surat_edt" id="tgl_surat_edt_u" required="">
+            </div>
+            <div class="form-group col-md-6">
+              <label><strong>Pengirim Undangan :</strong></label>
+              <input type="text"class="form-control" name="pengirim_edt" id="pengirim_u_edt" placeholder="Pengirim..." required>
+            </div>
+            <div class="form-group col-md-6">
+              <label><strong>Perihal Undangan :</strong></label>
+              <input type="text"class="form-control" name="perihal_edt" id="perihal_u_edt" placeholder="Perihal..." required>
+            </div>
+          </div>
+          <label><strong>Acara :</strong></label>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label><strong>Mulai :</strong></label>
+              <input type="datetime-local" class="form-control" name="start_event_edt" id="start_u_edt" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label><strong>Sampai :</strong></label>
+              <input type="datetime-local" class="date form-control" name="end_event_edt" id="end_u_edt" required="">
+            </div>
+          </div>
+          <div class="form-group col-md-6" hidden="">
+            <input type="text" class="form-control" name="type_surat_edt" value="undangan" required="">
+          </div>
+          File Lama : <label name="file_lama_edt" id="file_lama_edt_u"></label>
+          <div class="form-group">
+            <label><strong>Atau Upload ulang File (PDF/JPG) :</strong></label>
+            <input type="file"class="form-control-file" name="file_edt" id="file_u_edt">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" name="submit" class="btn btn-info">Edit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 
 
 <div class="modal fade bd-example-modal-lg" id="show_modal_sm" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -304,7 +449,6 @@
 </div>
 </div>
 
-
 <!-- load tabel sm -->
 <script>
   $(document).ready(function(){
@@ -366,7 +510,7 @@
       },
       dataType:"json",
       success:function(data){
-        $('#id_sm').val(data.id_sm);
+        $('#id_sm_edt').val(data.id_sm);
         $('#no_surat_edt').val(data.no_surat);
         $('#tgl_surat_edt').val(data.tgl_surat);
         $('#pengirim_edt').val(data.pengirim);
@@ -378,6 +522,30 @@
   });
 </script>
 <!-- tutup script cari data untuk di edit -->
+
+<script>
+  $(document).on('click','.btn_edit_u',function(){
+    var no=$(this).attr("id");
+    $.ajax({
+      url:"edit_sm.php",
+      method:"POST",
+      data:{
+        no:no
+      },
+      dataType:"json",
+      success:function(data){
+        $('#id_sm_u').val(data.id_sm);
+        $('#no_surat_edt_u').val(data.no_surat);
+        $('#tgl_surat_edt_u').val(data.tgl_surat);
+        $('#pengirim_u_edt').val(data.pengirim);
+        $('#perihal_u_edt').val(data.perihal);
+        $('#file_lama_edt_u').text(data.nama_file);
+        $('#edit_modal_u').modal('show');
+        console.log(data);
+      }
+    });
+  });
+</script>
 
 <!-- script hapus -->
 <script>

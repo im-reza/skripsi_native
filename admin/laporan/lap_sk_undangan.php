@@ -22,7 +22,7 @@ while ($data=mysqli_fetch_array($sql)) {
 
 		</div>
 		<div class="col-md-3" style="">
-			Banjarmasin , <?php echo date("d M Y",strtotime($tgl_surat)) ?>
+			Banjarmasin , <?php echo tgl_indo(date("D d-m-Y",strtotime($tgl_surat))) ?>
 			<br>
 			<br>
 			Kepada Yth,

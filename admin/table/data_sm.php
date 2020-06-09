@@ -1,6 +1,6 @@
 <?php    include '../../connections/connection_db.php';
 session_start(); ?>
-<table class="mb-0 table">
+<table class="mb-0 table table-bordered table-hover" id="data_sm" style="font-size: 12px;">
   <thead class="bg-light">
     <tr style="text-align: center;">
       <th>#</th>
@@ -24,36 +24,40 @@ session_start(); ?>
    $no = $limit_start + 1;
    $query = mysqli_query($con,"SELECT * FROM surat_masuk INNER JOIN file on surat_masuk.no_surat=file.no_surat ORDER BY surat_masuk.id_sm DESC LIMIT $limit_start, $limit");
    if (mysqli_num_rows($query)==0) {
-        echo '<tr><td colspan="14">Tidak Ada Data.</td></tr>';
-      }else{
+    echo '<tr><td colspan="14">Tidak Ada Data.</td></tr>';
+  }else{
    while ($d = mysqli_fetch_array($query)) {  
     $tgl_surat=$d['tgl_surat'];
     $tgl_masuk=$d['tgl_masuk'];
     ?>
     <tr>
-      <th><?php echo $nomor; ?></th>
-      <td><?php echo $d['no_surat']; ?></td>
-      <td><?php echo date('Y-m-d',strtotime($tgl_surat)); ?></td>
-      <td><?php echo $d['pengirim']; ?></td>
-      <td><?php echo $d['perihal']; ?></td>
-      <td><?php echo date('Y-m-d',strtotime($tgl_masuk)) ?></td>
+      <th style="font-size: 12px;"><?php echo $nomor; ?></th>
+      <td style="font-size: 12px;"><?php echo $d['no_surat']; ?></td>
+      <td style="font-size: 12px;"><?php echo date('Y-m-d',strtotime($tgl_surat)); ?></td>
+      <td style="font-size: 12px;"><?php echo $d['pengirim']; ?></td>
+      <td style="font-size: 12px;"><?php echo $d['perihal']; ?></td>
+      <td style="font-size: 12px;"><?php echo date('Y-m-d',strtotime($tgl_masuk)) ?></td>
       <td style="text-align: center;"><?php echo "<a href='../file/".$d['nama_file']."' target='_blank' data-toggle='tooltip' title='".$d['nama_file']."'><span class='fas fa-file-pdf'></span></a>" ?></td>
       <td style="text-align: center;">
         <?php if ($d['status']=="0"){
-          echo "<div class='mb-2 badge badge-pill badge-danger'>not verify</div>";
+          echo "<div style='font-size:8px' class='mb-2 badge badge-pill badge-danger'>not verify</div>";
         } else{
           echo "<a href='#?' class='mb-2 badge badge-pill badge-success btn_show' id='".$d['no_surat']."' ><i class='fas fa-print'></i></a>";
         }
         ?>
       </td>
       <td style='text-align: center'>
-        <button class='btn btn-sm btn-info btn_edit' id='<?php echo $d['id_sm'] ?>'><span class='far fa-edit'></button>
-        </td>
-        <td style='text-align: center'>
-          <button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sm.php?id=<?php echo $d['no_surat'] ?> ' data-toggle='modal' data-target='#delete_modal_sm'><span class='fas fa-trash-alt'></span></button>
-        </td>
-      </tr> 
-    </tbody>
+        <?php if ($d['type_surat']=='pemberitahuan'){
+          echo "<button class='btn btn-sm btn-info btn_edit' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+        }elseif ($d['type_surat']=='undangan') {
+          echo "<button class='btn btn-sm btn-info btn_edit_u' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+        } ?> 
+      </td>
+      <td style='text-align: center'>
+        <button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sm.php?id=<?php echo $d['no_surat'] ?> ' data-toggle='modal' data-target='#delete_modal_sm'><span class='fas fa-trash-alt'></span></button>
+      </td>
+    </tr> 
+  </tbody>
   <?php $nomor++; }} ?>
 </table>
 <?php

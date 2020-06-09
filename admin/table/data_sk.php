@@ -1,4 +1,4 @@
-<table class="mb-0 table">
+<table class="mb-0 table" style="font-size: 12px">
 	<thead class="bg-light">
 		<tr style="text-align: center;">
 			<th>#</th>
@@ -16,6 +16,7 @@
 		<?php 
 		include '../../connections/connection_db.php';
 		session_start();
+		$id=1;
 		$page = (isset($_POST['page']))? $_POST['page'] : 1;
 		$limit = 5; 
 		$limit_start = ($page - 1) * $limit;
@@ -28,8 +29,8 @@
 			$tgl_surat=$d['tanggal'];
 			?>
 			<tr>
-				<th><?php echo $d['id_sk']; ?></th>
-				<td><?php echo $d['pembuat']; ?></td>
+				<th><?php echo $id; ?></th>
+				<td style="color: blue"><?php echo $d['pembuat']; ?></td>
 				<td><?php echo $d['no_surat']; ?></td>
 				<td><?php echo date('Y-m-d',strtotime($tgl_surat)); ?></td>
 				<td><?php echo $d['perihal']; ?></td>
@@ -54,6 +55,8 @@
 						echo "<a href='edit_sk.php?id=".$d['no_surat']."'><button class='btn btn-info btn-sm'><span class='fas fa-edit'></span></button></a>";
 					}elseif ($_SESSION['name']=='kabag') {
 						echo "<a href='edit_sk.php?id=".$d['no_surat']."'><button class='btn btn-info btn-sm'><span class='fas fa-edit'></span></button></a>";
+					}else{
+						echo "<a href='edit_sk.php?id=".$d['no_surat']."' class='nav-link disabled'><button disabled='' class='btn btn-info btn-sm'><span class='fas fa-edit'></span></button></a>";
 					}
 					?>
 				</td>
@@ -62,12 +65,14 @@
 						echo "<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";
 					}elseif ($_SESSION['name']=='kabag') {
 						echo "<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";
+					}else{
+						echo "<button disabled='' class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";
 					}
 					?>
 				</td>
 			</tr> 
 		</tbody>
-	<?php }} ?>
+	<?php  $id++;}} ?>
 </table>
 <?php
 $query_jumlah =mysqli_query($con,"SELECT count(*) AS jumlah FROM surat_keluar");

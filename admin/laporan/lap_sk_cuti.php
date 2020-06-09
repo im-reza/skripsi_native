@@ -11,7 +11,7 @@ while ($data=mysqli_fetch_array($sql)) {
 		<div class="col-md-7">
 		</div>
 		<div class="col-md-3" style="">
-			Banjarmasin , <?php echo date("d M Y",strtotime($tgl_surat)) ?>
+			Banjarmasin , <?php echo tgl_indo(date("D d-m-Y",strtotime($tgl_surat))) ?>
 			<br>
 			<br>
 			Kepada Yth,
@@ -35,17 +35,7 @@ while ($data=mysqli_fetch_array($sql)) {
 	<div class="col-md-12" style="margin-top: 5px;">
 		<?php echo $data['isi']; ?>
 	</div>
-	<div class="row">
-		<div class="col-md-6"></div>
-		<div class="col-md-2"></div>
-		<div class="col-md-4" style="text-align: center; font-size: 14px;font-family: sans-serif;">
-			<b>
-				<p style="margin-bottom: 60px;">Hormat saya,</p>
-				<p><u><?php echo $data['pembuat']; ?></u><br>NIP. 19660601 198602 1 009</p>
-			</b>
-		</div>
 	<?php } ?>
-</div>
 <center>
 	<table cellspacing="0" class="MsoTableGrid" style="border-collapse:collapse; border:none; margin-left:17px; width:15.0cm">
 		<tbody>
@@ -79,8 +69,28 @@ while ($data=mysqli_fetch_array($sql)) {
 			</tr>
 		</tbody>
 	</table>
-
 </center>
+
+<div class="row mt-2">
+	<div class="col-md-6"></div>
+	<div class="col-md-2"></div>
+	<div class="col-md-4" style="text-align: center; font-size: 14px;font-family: sans-serif;margin-top: 1%;">
+		<b>
+			<?php
+			$query = mysqli_query($con, "select * from surat_keluar inner join user on surat_keluar.pembuat=user.name where surat_keluar.no_surat='$id'");
+			$user = mysqli_fetch_array($query);
+			$ttd = $user['nama'];
+			$nip = $user['nip'];
+			$tgl = $user['tanggal']
+
+
+			?>
+			<p>Banjarmasin, <?php echo tgl_indo(date('D d-m-Y',strtotime($tgl))) ?> </p>
+			<p style="margin-bottom: 70px;">Hormat Saya</p>
+			<p><u><?php echo $ttd; ?></u><br>NIP. <?php echo $nip; ?></p>
+		</b>
+	</div>
+</div>
 </div>
 <script src="../../assets/jquery/dist/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

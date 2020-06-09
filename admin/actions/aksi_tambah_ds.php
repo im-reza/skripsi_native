@@ -1,5 +1,5 @@
 <?php 
-include '../../connections/connection_db.php';
+include '../../connections/connection_db.php'; include '../../connections/tgl_indo.php';
 session_start();
 date_default_timezone_set('Asia/Jakarta');
 
@@ -26,24 +26,27 @@ if (isset($_REQUEST['submit'])) {
 	$perihal=$_POST['perihal'];
 	$jumlah_dipilih = count($penerima);
 	$secret_token = "1070076828:AAFr7XYh55CSvb5A6NUIyUfKU2_XdrgFVnk";
-	$date=date('D, d-m-Y');
+	$date=tgl_indo(date('D, d-m-Y'));
 
 
 	for($x=0;$x<$jumlah_dipilih;$x++){
-			$query=mysqli_query($con,"insert into disposisi values ('','$no_br','$penerima[$x]','$catatan','$tgl','0','0000-00-00 00:00:00') ");
-			$user=mysqli_query($con,"select id_telegram from user where name='$penerima[$x]'");
-			while ($us=mysqli_fetch_array($user)) {
-				$telegram_id=$us['id_telegram'];
-			}
-			$text='#-- *Pemberitahuan Disposisi* --#
-			Tanggal : *'.$date.'*,
-			Nomor Surat : *'.$no_br.'*,
-			Tentang : *'.$perihal.'*,
-			Catatan dari Kabag : *'.$catatan.'*,
-			Kepada : *'.$penerima[$x].'* 
-			#-- no-reply --# ';
-			$send[$x]=sendMessage($telegram_id, $text, $secret_token);
+		$query=mysqli_query($con,"insert into disposisi values ('','$no_br','$penerima[$x]','$catatan','$tgl','0','0000-00-00 00:00:00') ");
+		$user=mysqli_query($con,"select id_telegram from user where name='$penerima[$x]'");
+		while ($us=mysqli_fetch_array($user)) {
+			$telegram_id=$us['id_telegram'];
 		}
+		$text='#-- *Disposisi Surat* --#
+		Tanggal : *'.$date.'*,
+		Nomor Surat : *'.$no_br.'*,
+		Tentang : *'.$perihal.'*,
+		Catatan dari Kabag : *'.$catatan.'*,
+		Kepada : *'.$penerima[$x].'*,
+		arsip-bagpem.com/disposisi?='.$no_br.' 
+			#-- no-reply --# ';
+
+
+		$send[$x]=sendMessage($telegram_id, $text, $secret_token);
+	}
 	if ($query) {
 		
 		$querysm=mysqli_query($con,"update surat_masuk set status='1' where no_surat='$no_br'");
@@ -64,24 +67,4 @@ if (isset($_REQUEST['submit'])) {
 		echo "<script>window.location.href='../verif_ds.php'</script>";
 	}
 }
-?>
-
-<?php
-/* -----------------------------------------------------
-Simple PHP script for Sending Telegram Bot Message
-~ Iky | https://www.wadagizig.com
------------------------------------------------------- */
-
-
-/*----------------------
-only basic POST method :
------------------------*/
-
-
-/*--------------------------------
-Isi TOKEN dibawah ini: 
---------------------------------*/
-
-
-echo "<script>alert('Pesan berhasil terkirim!'); window.location.href = './';</script>";
 ?>

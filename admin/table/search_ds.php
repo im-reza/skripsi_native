@@ -1,4 +1,4 @@
-<table class="mb-0 table">
+<table class="mb-0 table" style="font-size: 12px;">
 	<thead class="bg-light">
 		<tr style="text-align: center;">
 			<th>#</th>

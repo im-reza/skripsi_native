@@ -37,11 +37,12 @@ if (isset($_REQUEST['submit'])) {
 			while ($us=mysqli_fetch_array($user)) {
 				$telegram_id=$us['id_telegram'];
 			}
-			$text='#-- *Pemberitahuan Disposisi* --#
+			$text='#-- *Perubahan Disposisi* --#
 			Nomor Surat : *'.$no_br.'*,
 			Tentang : *'.$perihal.'*,
 			Catatan dari Kabag : *'.$catatan.'*,
-			Kepada : *'.$penerima[$x].'* 
+			Kepada : *'.$penerima[$x].'*,
+			arsip-bagpem.com/eds?='.$no_br.' 
 			#-- no-reply --# ';
 			$send[$x]=sendMessage($telegram_id, $text, $secret_token);
 		}

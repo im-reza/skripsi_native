@@ -156,7 +156,7 @@ $t_biasa=mysqli_fetch_array($surat_biasa);
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<a class="btn btn-danger btn-sm btn-ok">Ya, Hapus !</a>
+						<a class="btn btn-danger btn-ok">Ya, Hapus !</a>
 					</div>
 				</div>
 			</div>

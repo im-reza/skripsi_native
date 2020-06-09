@@ -1,4 +1,4 @@
-<?php include_once'auth.php';  include '../connections/connection_db.php'; 
+<?php include_once'auth.php';  include '../connections/connection_db.php'; include '../connections/tgl_indo.php'; 
 $user=$_SESSION['name'];
 $ds=mysqli_query($con,"SELECT count(*) AS jumlah_ds FROM surat_masuk where status='0'");
 $box_masuk=mysqli_query($con,"SELECT count(*) AS t_masuk FROM disposisi where penerima='$user'");
@@ -6,6 +6,9 @@ $inbox=mysqli_query($con,"SELECT count(*) as t_inbox from disposisi where peneri
 $t_disposisi=mysqli_fetch_array($ds);
 $t_masuk=mysqli_fetch_array($box_masuk);
 $t_inbox=mysqli_fetch_array($inbox);
+$angka_ds=$t_disposisi['jumlah_ds'];
+$angka_inbox=$t_inbox['t_inbox'];
+$jumlah_kabag=$angka_ds+$angka_inbox;
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,6 +25,10 @@ $t_inbox=mysqli_fetch_array($inbox);
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+  <link href='../assets/fullcalendar/packages/core/main.css' rel='stylesheet' />
+  <link href='../assets/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+  <link href='../assets/fullcalendar/packages/timegrid/main.css' rel='stylesheet' />
   <link href="../assets/free.css" rel="stylesheet">
   <link rel="icon" type="text/css" href="../assets/images/rumah-banjar.png">
 
@@ -61,93 +68,134 @@ $t_inbox=mysqli_fetch_array($inbox);
       </div>
       <div class="app-header__content">
         <div class="app-header-left">
-          <ul class="header-menu nav">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-link-icon fas fa-chart-line" style="color: #000"></i> Statistics
-              </a>
-            </li>
-          </ul>
           <div class="header-btn-lg pr-0">
             <div class="widget-content p-0">
               <div class="widget-content-wrapper">
                 <div class="widget-content-left">
                   <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
-                    <i class="nav-link-icon fas fa-bell"></i> Mail
-                    <i class="fa fa-angle-down ml-2"></i>
-                    <?php if ($_SESSION['name']=='kabag') {
-                      if ($t_disposisi['jumlah_ds']>='1'){
-                        echo "<span class='button__badge'>".$t_disposisi['jumlah_ds']."</span>"; 
-                      } 
-                    }elseif ($_SESSION['name']) {
-                     echo "<span class='button__badge'>".$t_inbox['t_inbox']."</span>";
-                   }
-                   ?>
-                 </a>
-                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                  <?php if ($_SESSION['name']=='kabag') {
-                    echo "<a href='verif_ds.php' class='dropdown-item'>
-                    Verify Disposisi
-                    <div class='ml-auto badge badge-pill badge-danger'>".$t_disposisi['jumlah_ds']."</div>
-                    </a>";
+                    <i class="nav-link-icon far fa-user-circle"></i> User
+                  </a>
+                  <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                   <ul class="nav flex-column">
+                     <?php $q=mysqli_query($con,"select * from user");
+                     while ($dd=mysqli_fetch_array($q)) {
+                       ?>
+
+                       <li class="nav-item">
+                         <a disabled href="javascript:void(0);" class="nav-link disabled">
+                          <?php if ($dd['name']=='admin') {
+                            echo " <img width='42' class='rounded-circle' src='../assets/images/profile/admin.png' alt=''>";
+                          }elseif ($dd['name']=='kabag') {
+                            echo " <img width='42' class='rounded-circle' src='../assets/images/profile/head.png' alt=''>";
+                          }elseif($dd['name']=='kasubag otda') {
+                            echo " <img width='42' class='rounded-circle' src='../assets/images/profile/office.png' alt=''>";
+                          }elseif($dd['name']=='kasubag kecamatan') {
+                            echo " <img width='42' class='rounded-circle' src='../assets/images/profile/office.png' alt=''>";
+                          }else{
+                            echo " <img width='42' class='rounded-circle' src='../assets/images/profile/woman.png' alt=''>";
+                          } ?>
+                          <span class="ml-2">
+                            <?php echo $dd['name']; ?>
+                          </span>
+                          <?php if ($dd['status_user']=='cuti'){
+                            echo "<div class='ml-auto status-circle' style='background-color:red'></div>";
+                          }elseif($dd['online']=='0') {
+                           echo "<div class='ml-auto status-circle'></div>";
+                         }elseif($dd['online']=='1'){
+                          echo "<div class='ml-auto status-circle' style='background-color:#26D07C'></div>";
+                         } ?>
+                       </a>
+                     </li>
+
+                   <?php } ?>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="header-btn-lg pr-0">
+        <div class="widget-content p-0">
+          <div class="widget-content-wrapper">
+            <div class="widget-content-left">
+              <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                <i class="nav-link-icon fas fa-bell"></i> Mail
+                <i class="fa fa-angle-down ml-2"></i>
+                <?php if ($_SESSION['name']=='kabag') {
+                  if ($t_disposisi['jumlah_ds']>='1'){
+                    echo "<span class='button__badge'>".$jumlah_kabag."</span>"; 
+                  } 
+                }elseif ($_SESSION['name'] && $t_inbox['t_inbox']>0 ) {
+                 echo "<span class='button__badge'>".$t_inbox['t_inbox']."</span>";
+               }elseif($_SESSION['name'] && $t_inbox['t_inbox']=='0'){
+                echo "";
+              }
+              ?>
+            </a>
+            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+              <?php if ($_SESSION['name']=='kabag') {
+                echo "<a href='verif_ds.php' class='dropdown-item'>
+                Verify Disposisi
+                <div class='ml-auto badge badge-pill badge-danger'>".$t_disposisi['jumlah_ds']."</div>
+                </a>";
+              } 
+              ?>
+              <a href="inbox.php"  class="dropdown-item">Inbox
+                <div class="ml-auto badge badge-pill badge-secondary">
+                  <?php if ($_SESSION['name']) {
+                    echo $t_masuk['t_masuk'];
                   } 
                   ?>
-                  <a href="inbox.php"  class="dropdown-item">Inbox
-                    <div class="ml-auto badge badge-pill badge-secondary">
-                      <?php if ($_SESSION['name']) {
-                        echo $t_masuk['t_masuk'];
-                      } 
-                      ?>
-                    </div>
-                  </a>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="app-header-right">
-       <div class="header-btn-lg pr-0">
-         <div class="widget-content p-0">
-           <div class="widget-content-wrapper">
-             <div class="widget-content-left">
-               <div class="btn-group">
-                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                  <?php if ($_SESSION['name']=='admin') {
-                    echo " <img width='42' class='rounded-circle' src='../assets/images/profile/admin.png' alt=''>";
-                  }elseif ($_SESSION['name']=='kabag') {
-                    echo " <img width='42' class='rounded-circle' src='../assets/images/profile/head.png' alt=''>";
-                  }elseif($_SESSION['name']=='kasubag kerjasama') {
-                    echo " <img width='42' class='rounded-circle' src='../assets/images/profile/woman.png' alt=''>";
-                  }else{
-                    echo " <img width='42' class='rounded-circle' src='../assets/images/profile/office.png' alt=''>";
-                  } ?>
-                  <i class="fa fa-angle-down ml-2"></i>
-                </a>
-                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                 <a class="dropdown-item" href="setting.php">Setting</a>
-                 <a class="dropdown-item" href="../logout.php">Logout</a>
-               </div>
-             </div>
-           </div>
-           <div class="widget-content-left  ml-3 header-user-info">
-             <div class="widget-heading">
-               <?php echo $_SESSION['nama']; ?>
-             </div>
-             <div class="widget-subheading" id="posisi">
-               <?php echo $_SESSION['name']; ?>
-             </div>
-           </div>
-           <div class="widget-content-right header-user-info ml-3">
-             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-               <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-             </button>
+    </div>
+  </div>
+  <div class="app-header-right">
+   <div class="header-btn-lg pr-0">
+     <div class="widget-content p-0">
+       <div class="widget-content-wrapper">
+         <div class="widget-content-left">
+           <div class="btn-group">
+             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+              <?php if ($_SESSION['name']=='admin') {
+                echo " <img width='42' class='rounded-circle' src='../assets/images/profile/admin.png' alt=''>";
+              }elseif ($_SESSION['name']=='kabag') {
+                echo " <img width='42' class='rounded-circle' src='../assets/images/profile/head.png' alt=''>";
+              }elseif($_SESSION['name']=='kasubag kerjasama') {
+                echo " <img width='42' class='rounded-circle' src='../assets/images/profile/woman.png' alt=''>";
+              }else{
+                echo " <img width='42' class='rounded-circle' src='../assets/images/profile/office.png' alt=''>";
+              } ?>
+              <i class="fa fa-angle-down ml-2"></i>
+            </a>
+            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+             <a class="dropdown-item" href="setting.php">Setting</a>
+             <a class="dropdown-item" href="../logout.php">Logout</a>
            </div>
          </div>
+       </div>
+       <div class="widget-content-left  ml-3 header-user-info">
+         <div class="widget-heading">
+           <?php echo $_SESSION['nama']; ?>
+         </div>
+         <div class="widget-subheading" id="posisi">
+           <?php echo $_SESSION['name']; ?>
+         </div>
+       </div>
+       <div class="widget-content-right header-user-info ml-3">
+         <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+           <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+         </button>
        </div>
      </div>
    </div>
  </div>
+</div>
+</div>
 </div>
 <div class="scrollbar-container"></div>
 <div class="app-main">
@@ -214,8 +262,9 @@ $t_inbox=mysqli_fetch_array($inbox);
               <li>
               <a href='verif_ds.php'>
               <i class='metismenu-icon'>
-              </i><span class='far fa-paper-plane'></span> Verif Disposisi
-              <div class='ml-auto badge badge-pill badge-danger'>".$t_disposisi['jumlah_ds']."</div>
+              </i><span class='far fa-check-circle'></span> Verif Disposisi
+              ".(($t_disposisi['jumlah_ds']>0) ? "<div class='ml-auto badge badge-pill badge-danger'>".$t_disposisi['jumlah_ds']."</div>" : "")
+              ."
               </a>
               </li>";
             }else{
@@ -229,14 +278,16 @@ $t_inbox=mysqli_fetch_array($inbox);
             <li>
               <a href='inbox.php'>
                 <i class='metismenu-icon'>
-                </i><span class='far fa-paper-plane'></span> Inbox
-                <div class='ml-auto badge badge-pill badge-danger'><?php echo $t_inbox['t_inbox'];  ?></div>
+                </i><span class='far fa-comment-dots'></span> Inbox
+                <?php if ($t_inbox['t_inbox']>0){
+                  echo "<div class='ml-auto badge badge-pill badge-danger'>".$t_inbox['t_inbox']."</div>";
+                } ?>
               </a>
             </li>
             <li>
               <a href='#' data-target="#search_modal" data-toggle="modal">
                 <i class='metismenu-icon'>
-                </i><span class='far fa-paper-plane'></span> Cari Surat
+                </i><span class='fas fa-search'></span> Cari Surat Masuk
               </a>
             </li>
           </ul>
@@ -285,9 +336,8 @@ $t_inbox=mysqli_fetch_array($inbox);
             </li>
           </ul>
         </li>
-
         <li class="app-sidebar__heading">Report</li>
-        <li>
+        <li class="mm-active">
           <a href="#">
             <i class="metismenu-icon fas fa-print"></i> Pilih Laporan
             <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>

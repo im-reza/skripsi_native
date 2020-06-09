@@ -89,7 +89,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label><strong>Tanggal diterima :</strong></label>
-                <input type="date" class="date form-control" name="tgl_masuk" id="tgl_masuk" readonly="">
+                <input type="text" class="date form-control" name="tgl_masuk" id="tgl_masuk" readonly="">
               </div>
               <div class="form-group col-md-6">
                 <label><strong>Pengirim :</strong></label>

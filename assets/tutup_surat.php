@@ -3,15 +3,15 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-4" style="text-align: center; font-size: 14px;font-family: sans-serif;margin-top: 1%;">
 		<b>
-			<?php  include '../../connections/connection_db.php';
-			date_default_timezone_set('Asia/Jakarta');
-			$query=mysqli_query($con,"select * from user where status_user='1'");
+			<?php 
+			$query=mysqli_query($con,"select * from user where status_user='bekerja'");
 			$user=mysqli_fetch_array($query);
 			$ttd=$user['nama'];
 			$nip=$user['nip'];
+			$status_kabag=$user['status_user'];
 
 			?>
-			<p>Banjarmasin, <?php echo date('d-m-Y'); ?> </p>
+			<p>Banjarmasin, <?php echo tgl_indo(date('D d-m-Y')); ?> </p>
 			<p style="margin-bottom: 70px;">KABAG PEMERINTAHAN</p>
 			<p><u><?php echo $ttd; ?></u><br>NIP. <?php echo $nip; ?></p>
 		</b>

@@ -71,7 +71,7 @@ while ($d = mysqli_fetch_array($sql)) {
 			$nip = $user['nip'];
 
 			?>
-			<p>Banjarmasin, <?php echo $tgl_ttd ?> </p>
+			<p>Banjarmasin, <?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_ttd))) ?> </p>
 			<p style="margin-bottom: 70px;">KABAG PEMERINTAHAN</p>
 			<p><u><?php echo $ttd; ?></u><br>NIP. <?php echo $nip; ?></p>
 		</b>
