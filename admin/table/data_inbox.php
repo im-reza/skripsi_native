@@ -61,9 +61,9 @@
         <?php if ($d['status_ds']=='0') {
           echo "<a href='actions/aksi_baca_ds.php?id=".$d['id_ds']."' class='btn btn-sm btn-info'>Dibaca</a>";
         }else{
-          if ($menit_fix=='0') {       
+          if ($menit_fix=='0' && $jam=='0') {       
            echo " ".$jumlah_detik." detik yang lalu ";
-         } elseif ($jam=='0') {
+         } elseif ($jam=='0' && $hari=='0') {
           echo " ".$menit_fix." menit yang lalu ";
         }elseif($hari=='0') {
          echo " ".$jam." jam ".$menit_fix." menit yang lalu ";

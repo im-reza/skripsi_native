@@ -42,8 +42,7 @@ if (isset($_REQUEST['submit'])) {
 	$text='#-- *Surat Pemberitahuan* --#
 	Surat nomor *'.$no_br.'*,
 	dari : *'.$pengirim.'*,
-	Perihal : *'.$perihal.'*, 
-	arsip-bagpem.com/verif?='.$no_br.'
+	Perihal : *'.$perihal.'*
 	 #-- Harap segera diverifikasi ! --# ';
 	
 

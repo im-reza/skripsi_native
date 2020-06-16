@@ -10,7 +10,7 @@ $total_records = $d['jumlah_sm'];
 ?>
 <h3 align="center">Data Surat Masuk</h3><br>
 <p align="center">Dari Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_f))); ?></b> Sampai Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_2))); ?></b></p>
-<table class="table table-dark table-striped">
+<table border="2">
 	<thead>
 		<tr style="text-align: center;">
 			<th scope="row">No</th>
@@ -26,16 +26,17 @@ $total_records = $d['jumlah_sm'];
 		<?php 
 		$query=mysqli_query($con,"SELECT * FROM surat_masuk INNER JOIN file on surat_masuk.no_surat=file.no_surat where file.tgl_masuk between '$tgl_f 23:59:59' and '$tgl_2 23:59:59' order by surat_masuk.id_sm ");
 		while ($d=mysqli_fetch_array($query)) {
+			$tgl_surat=$d['tgl_surat'];
 			$tgl_masuk=$d['tgl_masuk'];
 			?>
 
 			<tr>
 				<td><?php echo $no; ?></td>
 				<td><?php echo $d['no_surat']; ?></td>
-				<td><?php echo $d['tgl_surat']; ?></td>
+				<td><?php echo tgl_indo(date('D, d-m-Y',strtotime($tgl_surat))) ?></td>
 				<td><?php echo $d['pengirim']; ?></td>
 				<td><?php echo $d['perihal']; ?></td>
-				<td><?php echo date('Y-m-d',strtotime($tgl_masuk)) ?></td>
+				<td><?php echo tgl_indo(date('D, d-m-Y',strtotime($tgl_masuk))) ?></td>
 				<td><?php echo $d['nama_file']; ?></td>
 			</tr>
 		</tbody>
@@ -46,3 +47,4 @@ $total_records = $d['jumlah_sm'];
 
 
 	<?php include_once '../../assets/tutup_surat.php'; ?>
+	<script> window.print(); </script>

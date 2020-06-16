@@ -59,7 +59,7 @@
 						<div class="form-group col-md-12">
 							<label><strong>Penerima Surat :</strong></label>
 							<textarea name="penerima" class="form-control" id="editor1">
-								<p style="margin-left:30px">Kepala Bagian Umum Pememrintahan Kota Banjarmasin</p>
+								<p style="margin-left:30px">Bagian Umum Pemerintahan Kota Banjarmasin</p>
 							</textarea>
 						</div>
 						<div class="form-group col-md-12">
@@ -67,10 +67,14 @@
 							<textarea name="isi" id="editor2" class="form-control">
 								<p>Yang bertanda tangan dibawah ini :</p>
 
-								<p style="margin-left:40px">Nama&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp; &nbsp; Muhammad Reza</p>
+								<p style="margin-left:40px">Nama&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp; &nbsp; <?php echo $_SESSION['nama'];?></p>
 
-								<p style="margin-left:40px">NIP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp; &nbsp; 16630460</p>
-
+								<p style="margin-left:40px">NIP&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp; &nbsp; <?php 
+								$query = mysqli_query($con, "select * from user where name='".$_SESSION['name']."'");
+								$user = mysqli_fetch_array($query);
+								$nip = $user['nip'];
+								?>
+								<?php echo $nip; ?></p>
 								<p style="margin-left:40px">Pangkat/Gol&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :&nbsp; &nbsp; Pranata Muda III/a</p>
 
 								<p style="margin-left:40px">Jabatan&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; :&nbsp; &nbsp;-</p>

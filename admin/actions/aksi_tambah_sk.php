@@ -32,9 +32,8 @@ if (isset($_REQUEST['submit'])) {
 	Tanggal : *'.$dibuat.'*,
 	Nomor Surat : *'.$no_br.'*,
 	Yang Membuat : *'.$pembuat.'*,
-	Perihal : *'.$perihal.'*,
-	arsip-bagpem.com/sk?='.$no_br.' 
-			#-- Terimakasih --# ';
+	Perihal : *'.$perihal.'*
+	#-- Terimakasih --# ';
 
 	$id_kabag=mysqli_query($con,"select id_telegram from user where name='kabag'");
 	while ($kabag=mysqli_fetch_array($id_kabag)) {

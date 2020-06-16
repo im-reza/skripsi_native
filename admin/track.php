@@ -35,6 +35,9 @@
     </div>";
     $no=$_GET['nomor_s'];
     $query=mysqli_query($con,"SELECT * FROM surat_masuk LEFT JOIN file ON surat_masuk.no_surat=file.no_surat LEFT JOIN disposisi ON surat_masuk.no_surat=disposisi.no_surat WHERE surat_masuk.no_surat='$no' ");
+    if (mysqli_num_rows($query)==0) {
+        echo '<center><b>Tidak ada data dengan nomor tersebut</b></center>';
+      }else{
     while ($d=mysqli_fetch_array($query)) {
       $tgl_surat=$d['tgl_masuk'];
       $tgl_verif=$d['tgl'];
@@ -42,8 +45,8 @@
       ?>
       <div class="col-md-12">
         <div class="main-card mb-3 card">
-          <center><div class="card-header"><?php echo $d['pengirim']; ?> | <?php echo $no ?> | <?php echo $d['perihal']; ?> | <?php echo $d['penerima']; ?> </div></center>
-          <div class="card-body" style="color: green">
+          <div class="card-header"><center><?php echo $d['pengirim']; ?> | <?php echo $no ?> | <?php echo $d['perihal']; ?> | <?php echo $d['penerima']; ?></center><a href="laporan/lap_data_ds.php?no_surat_show=<?php echo $d['no_surat'] ?> " target='_blank' class="ml-auto"><button class="btn btn-success">Disposisi</button></a></div>
+          <div class="card-body">
             <ul class="events">
               <li>
                 <time><?php echo tgl_indo(date('D, d-F-Y, H:i',strtotime($tgl_surat))) ?></time> 
@@ -117,7 +120,7 @@
       </div>
     </div>
 
-  <?php } ?>
+  <?php }} ?>
 
 
 

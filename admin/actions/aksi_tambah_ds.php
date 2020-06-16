@@ -40,8 +40,7 @@ if (isset($_REQUEST['submit'])) {
 		Nomor Surat : *'.$no_br.'*,
 		Tentang : *'.$perihal.'*,
 		Catatan dari Kabag : *'.$catatan.'*,
-		Kepada : *'.$penerima[$x].'*,
-		arsip-bagpem.com/disposisi?='.$no_br.' 
+		Kepada : *'.$penerima[$x].'*
 			#-- no-reply --# ';
 
 

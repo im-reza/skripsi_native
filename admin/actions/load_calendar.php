@@ -12,7 +12,7 @@ while ($d=mysqli_fetch_array($query)) {
  	'title'=>$d['perihal'],
  	'start'=>$d['start_event'],
  	'end'=>$d['end_event'],
- 	'color'=> '#257e4a',
+ 	'color'=> 'blue',
  	'description' => $d['perihal'],
  	'url'=> '../file/'.$d['nama_file'].''
  );

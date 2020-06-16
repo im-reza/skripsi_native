@@ -1,4 +1,4 @@
-<?php 		include '../../connections/connection_db.php';
+<?php 	include '../../connections/connection_db.php'; include '../../connections/tgl_indo.php';
 session_start(); ?>
 <table class="mb-0 table" style="font-size: 12px;">
 	<thead class="bg-light">
@@ -14,6 +14,7 @@ session_start(); ?>
 			<?php if ($_SESSION['name']=='kabag') {
 				echo "<th>Opsi</th>";
 			} ?>
+			<th>Status</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,7 +37,7 @@ session_start(); ?>
 				<td><?php echo $d['no_surat']; ?></td>
 				<td><?php echo $d['pengirim']; ?></td>
 				<td><?php echo $d['perihal']; ?></td>
-				<td style="text-align: center;"><?php echo date('Y-m-d H:i',strtotime($tgl_verif)) ?></td>
+				<td style="text-align: center;"><?php echo tgl_indo(date('D, d-m-Y H:i',strtotime($tgl_verif))) ?></td>
 				<td style="text-align: center;"><?php echo "<a href='../file/".$d['nama_file']."' target='_blank' data-toggle='tooltip' title='".$d['nama_file']."'><span class='fas fa-file-pdf'></span></a>" ?></td>
 				<td style='text-align: center;'><?php echo $d['penerima']; ?></td>
 				<td><?php echo $d['catatan']; ?></td>
@@ -44,6 +45,11 @@ session_start(); ?>
 					echo "<td>
 					<button class='btn btn-sm btn-info btn_edit' id='".$d['no_surat']."'><span class='far fa-edit'></button>
 					</td>";
+				} ?>
+				<?php if ($d['tgl_dibaca']=='0000-00-00 00:00:00'){
+					echo "<td class='text-center' style='color:#6c757d'><i class='fas fa-check'></i></td>";
+				}else{
+					echo "<td class='text-center' style='color:#3f6ad8'><i class='fas fa-check-double'></i></td>";
 				} ?>
 			</tr> 
 		</tbody>

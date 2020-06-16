@@ -1,12 +1,12 @@
 <?php include_once '../../assets/kop_surat.php';
-include '../../connections/connection_db.php'; ?>
+include '../../connections/connection_db.php';?>
 <?php
 $id = $_GET['no_surat_show'];
 $sql = mysqli_query($con, "select surat_masuk.no_surat,surat_masuk.tgl_surat,surat_masuk.pengirim,surat_masuk.perihal,file.nama_file,file.tgl_masuk,disposisi.catatan,disposisi.tgl, GROUP_CONCAT(penerima SEPARATOR  ' & ') as penerima from disposisi inner join surat_masuk inner join file on surat_masuk.no_surat=disposisi.no_surat and surat_masuk.no_surat=file.no_surat where disposisi.no_surat='$id' GROUP BY disposisi.no_surat order by disposisi.tgl;");
 while ($d = mysqli_fetch_array($sql)) {
-	$tgl_masuk = date('d-m-Y', strtotime($d['tgl_masuk']));
-	$tgl_surat = date('d-m-Y', strtotime($d['tgl_surat']));
-	$tgl_verif = date('d-m-Y H:i', strtotime($d['tgl']));
+	$tgl_masuk = tgl_indo(date('D, d-m-Y', strtotime($d['tgl_masuk'])));
+	$tgl_surat = tgl_indo(date('D, d-m-Y', strtotime($d['tgl_surat'])));
+	$tgl_verif = tgl_indo(date('D, d-m-Y H:i', strtotime($d['tgl'])));
 	$tgl_ttd = date('d-m-Y', strtotime($d['tgl']));
 	?>
 	<div class="row">
@@ -21,8 +21,8 @@ while ($d = mysqli_fetch_array($sql)) {
 	</div>
 	<div class="row" style="margin-top: 2%">
 		<div class="col-md-12">
-			<div class="main-card mb-3">
-				<div class="card-body">
+			<div class="main-card mb-3 card-shadow-info border card border-dark">
+				<div class="card-body border-warning">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -43,11 +43,15 @@ while ($d = mysqli_fetch_array($sql)) {
 							</tr>
 						</thead>
 					</table>
-					<label style="margin-top: 4%"><strong>Kepada Sodara :</strong></label>
+					<label><strong>Perihal :</strong></label>
+					<div class="form-group">
+						<input type="text" class="form-control" value="<?php echo $d['perihal'] ?>">
+					</div>
+					<label><strong>Kepada Sodara :</strong></label>
 					<div class="form-group">
 						<input type="text" class="form-control" value="<?php echo $d['penerima'] ?>">
 					</div>
-					<div class="form-group" style="margin-top: 4%">
+					<div class="form-group">
 						<label><strong>Catatan :</strong></label>
 						<textarea class="form-control" style="font-size: larger; color: blue"><?php echo $d['catatan']; ?></textarea>
 					</div>
@@ -84,3 +88,4 @@ while ($d = mysqli_fetch_array($sql)) {
 </body>
 
 </html>
+<script> window.print(); </script>

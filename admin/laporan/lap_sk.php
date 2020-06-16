@@ -10,15 +10,15 @@ $total_records = $d['jumlah_sk'];
 ?>
 <h3 align="center">Data Surat Keluar</h3><br>
 <p align="center">Dari Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_f))); ?></b> Sampai Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_2))); ?></b></p>
-<table class="table table-dark table-striped">
+<table border="2">
 	<thead>
 		<tr style="text-align: center;">
 			<th scope="row">No</th>
 			<th>Pembuat</th>
 			<th>Nomor Surat</th>
-			<th>Tanggal</th>
+			<th>Tanggal Dibuat</th>
 			<th>Perihal</th>
-			<th>Penerima</th>
+			<th>Kepada</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +31,7 @@ $total_records = $d['jumlah_sk'];
 				<td><?php echo $no; ?></td>
 				<td align="center"><?php echo $d['pembuat']; ?></td>
 				<td align="center"><?php echo $d['no_surat']; ?></td>
-				<td align="center"><?php echo $d['tanggal']; ?></td>
+				<td align="center"><?php echo tgl_indo(date('D, d-m-Y', strtotime($tgl_masuk))) ?></td>
 				<td align="center"><?php echo $d['perihal']; ?></td>
 				<td><?php echo $d['penerima']; ?></td>
 			</tr>
@@ -43,3 +43,4 @@ $total_records = $d['jumlah_sk'];
 
 
 	<?php include_once '../../assets/tutup_surat.php'; ?>
+	<script> window.print(); </script>

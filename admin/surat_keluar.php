@@ -32,6 +32,9 @@ $t_biasa=mysqli_fetch_array($surat_biasa);
 				</div>
 				<div class="page-title-actions">
 					<div class="d-inline-block dropdown">
+						<a href="#" data-target="#lap_modal_sk" data-toggle="modal">
+							<button class="btn btn-primary">Cetak</button>
+						</a>
 						<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-success">
 							<span class="btn-icon-wrapper pr-2 opacity-7">
 								<i class="fas fa-pencil-alt fa-w-20"></i>

@@ -1,6 +1,6 @@
-<?php    include '../../connections/connection_db.php';
+<?php   include '../../connections/connection_db.php'; include '../../connections/tgl_indo.php';
 session_start(); ?>
-<table class="mb-0 table" style="font-size: 12px;">
+<table class="mb-0 table table-bordered table-hover" style="font-size: 12px;">
 	<thead class="bg-light">
 		<tr style="text-align: center;">
 			<th>#</th>
@@ -41,30 +41,42 @@ session_start(); ?>
 					$tgl_masuk=$d['tgl_masuk'];
 					?>
 					<tr>
-						<th><?php echo $nomor; ?></th>
-						<td><?php echo $d['no_surat']; ?></td>
-						<td><?php echo date('Y-m-d',strtotime($tgl_surat)); ?></td>
-						<td><?php echo $d['pengirim']; ?></td>
-						<td><?php echo $d['perihal']; ?></td>
-						<td><?php echo date('Y-m-d',strtotime($tgl_masuk)) ?></td>
+						<th style="font-size: 12px;"><?php echo $nomor; ?></th>
+						<td style="font-size: 12px;"><?php echo $d['no_surat']; ?></td>
+						<td style="font-size: 12px;"><?php echo date('d-m-Y',strtotime($tgl_surat)); ?></td>
+						<td style="font-size: 12px;"><?php echo $d['pengirim']; ?></td>
+						<td style="font-size: 12px;"><?php echo $d['perihal']; ?></td>
+						<td style="font-size: 12px;"><?php echo tgl_indo(date('D, d-m-Y',strtotime($tgl_masuk))) ?></td>
 						<td style="text-align: center;"><?php echo "<a href='../file/".$d['nama_file']."' target='_blank' data-toggle='tooltip' title='".$d['nama_file']."'><span class='fas fa-file-pdf'></span></a>" ?></td>
 						<td style="text-align: center;">
 							<?php if ($d['status']=="0"){
-								 echo "<div style='font-size:8px' class='mb-2 badge badge-pill badge-danger'>not verify</div>";
+								echo "<div style='font-size:8px' class='mb-2 badge badge-pill badge-danger' data-toggle='tooltip' title='Belum Diverifikasi'>not verify</div>";
 							} else{
-								echo "<a href='#?' class='mb-2 badge badge-pill badge-success btn_show' id='".$d['no_surat']."' ><i class='fas fa-print'></i></a>";
+								echo "<a href='#?' class='mb-2 badge badge-pill badge-success btn_show' id='".$d['no_surat']."' data-toggle='tooltip' title='Sudah diverifikasi' ><i class='fas fa-print'></i></a>";
 							}
 							?>
 						</td>
 						<td style='text-align: center'>
 							<?php if ($d['type_surat']=='pemberitahuan'){
-								echo "<button class='btn btn-sm btn-info btn_edit' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+								if ($_SESSION['name']=='admin') {
+									echo "<button class='btn btn-sm btn-info btn_edit' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+								}else{
+									echo "<button disabled='' class='btn btn-sm btn-info btn_edit' id=".$d['id_sm']."><span class='far fa-edit' data-toggle='tooltip' title='Hanya admin'></button>";
+								}
 							}elseif ($d['type_surat']=='undangan') {
-								echo "<button class='btn btn-sm btn-info btn_edit_u' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+								if ($_SESSION['name']=='admin') {
+									echo "<button class='btn btn-sm btn-primary btn_edit_u' id=".$d['id_sm']."><span class='far fa-edit'></button>";
+								} else {
+									echo "<button disabled='' class='btn btn-sm btn-primary btn_edit_u' id=".$d['id_sm']."><span class='far fa-edit' data-toggle='tooltip' title='Hanya admin'></button>";
+								}  
 							} ?> 
 						</td>
 						<td style='text-align: center'>
-							<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sm.php?id=<?php echo $d['no_surat'] ?> ' data-toggle='modal' data-target='#delete_modal_sm'><span class='fas fa-trash-alt'></span></button>
+							<?php if ($_SESSION['name']=='admin'){
+								echo "<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sm.php?id=".$d['no_surat']." ' data-toggle='modal' data-target='#delete_modal_sm'><span class='fas fa-trash-alt'></span></button>";
+							}else{
+								echo "<button disabled='' class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sm.php?id=".$d['no_surat']." ' data-toggle='modal' data-target='#delete_modal_sm'><span class='fas fa-trash-alt' data-toggle='tooltip' title='Hanya admin'></span></button>";
+							} ?>
 						</td>
 					</tr> 
 				</tbody>

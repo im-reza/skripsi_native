@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		<?php 
-		include '../../connections/connection_db.php';
+		include '../../connections/connection_db.php'; include '../../connections/tgl_indo.php';
 		session_start();
 		if (isset($_POST['cari_sk'])) { 
 
@@ -38,23 +38,23 @@
 					?>
 					<tr>
 						<th><?php echo $d['id_sk']; ?></th>
-						<td><?php echo $d['pembuat']; ?></td>
+						<td style="color: blue" class="text-center"><?php echo $d['pembuat']; ?></td>
 						<td><?php echo $d['no_surat']; ?></td>
-						<td><?php echo date('Y-m-d',strtotime($tgl_surat)); ?></td>
+						<td><?php echo tgl_indo(date('D, d-m-Y',strtotime($tgl_surat))); ?></td>
 						<td><?php echo $d['perihal']; ?></td>
 						<td><?php echo $d['penerima']; ?></td>
 						<td hidden=""><?php echo $d['isi']; ?></td>
 						<td style="text-align: center;">
 							<?php if ($d['sifat']=="Surat Undangan"){
-								echo "<a target='_blank' href='laporan/lap_sk_undangan.php?id=".$d['no_surat']."'><button class='btn btn-secondary btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
+								echo "<a target='_blank' href='laporan/lap_sk_undangan.php?id=".$d['no_surat']."' data-toggle='tooltip' title='Surat Undangan'><button class='btn btn-secondary btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
 							}elseif ($d['sifat']=="Surat Permohonan Cuti") {
-								echo "<a target='_blank' href='laporan/lap_sk_cuti.php?id=".$d['no_surat']."'><button class='btn btn-primary btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
+								echo "<a target='_blank' href='laporan/lap_sk_cuti.php?id=".$d['no_surat']."' data-toggle='tooltip' title='Surat Cuti'><button class='btn btn-primary btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
 							}elseif ($d['sifat']=="Surat Perintah Kerja") {
-								echo "<a target='_blank' href='laporan/lap_sk_kerja.php?id=".$d['no_surat']."'><button class='btn btn-warning btn-sm'><span class='fas fa-file-pdf'></span></button></a>"; 
+								echo "<a target='_blank' href='laporan/lap_sk_kerja.php?id=".$d['no_surat']."' data-toggle='tooltip' title='Surat Perintah Kerja'><button class='btn btn-warning btn-sm'><span class='fas fa-file-pdf'></span></button></a>"; 
 							}elseif ($d['sifat']=="Surat Perjalanan Dinas") {
-								echo "<a target='_blank' href='laporan/lap_sk_dinas.php?id=".$d['no_surat']."'><button class='btn btn-success btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
+								echo "<a target='_blank' href='laporan/lap_sk_dinas.php?id=".$d['no_surat']."' data-toggle='tooltip' title='Surat Perjalanan Dinas'><button class='btn btn-success btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
 							}elseif ($d['sifat']=="Surat Biasa") {
-								echo "<a target='_blank' href='laporan/lap_sk_undangan.php?id=".$d['no_surat']."'><button class='btn btn-secondary btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
+								echo "<a target='_blank' href='laporan/lap_sk_undangan.php?id=".$d['no_surat']."' data-toggle='tooltip' title='Surat yang Dibuat Sendiri'><button class='btn btn-dark btn-sm'><span class='fas fa-file-pdf'></span></button></a>";
 							}
 							?>
 						</td>

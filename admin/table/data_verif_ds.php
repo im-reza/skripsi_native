@@ -57,7 +57,7 @@
 							}else{
 								echo " ".$hari." hari yang lalu ";
 							} ?>
-							<a href="#" class='btn-wide btn btn-success btn_ds' id="<?php echo $d['id_sm'];?>">Verify</a>
+							<a href="#" class='btn-wide btn btn-success btn_ds' id="<?php echo $d['id_sm'];?>">Tambah</a>
 						</div>
 					</div>
 				</div>

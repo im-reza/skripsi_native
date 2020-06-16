@@ -41,8 +41,7 @@ if (isset($_REQUEST['submit'])) {
 			Nomor Surat : *'.$no_br.'*,
 			Tentang : *'.$perihal.'*,
 			Catatan dari Kabag : *'.$catatan.'*,
-			Kepada : *'.$penerima[$x].'*,
-			arsip-bagpem.com/eds?='.$no_br.' 
+			Kepada : *'.$penerima[$x].'*
 			#-- no-reply --# ';
 			$send[$x]=sendMessage($telegram_id, $text, $secret_token);
 		}

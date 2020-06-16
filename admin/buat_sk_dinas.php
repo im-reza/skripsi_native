@@ -92,7 +92,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td style="border-bottom:2px solid #a8a8a8; border-left:1px solid #777777; border-right:1px solid #a3a3a3; border-top:none; height:83px; vertical-align:top; width:28px">
+											<td style="border-bottom:2px solid #a8a8a8; border-left:1px solid #777777; border-right:1px solid #a3a3a3; border-top:none; height:75px; vertical-align:top; width:28px">
 												<p style="margin-left:6px"><span style="font-size:16px"><span style="color:#000000"><span style="font-family:Times New Roman,Times,serif">3</span></span></span></p>
 											</td>
 											<td style="border-bottom:2px solid #a8a8a8; border-left:none; border-right:1px solid gray; border-top:none; height:83px; vertical-align:top; width:292px">

@@ -1,5 +1,6 @@
 <?php 
 include '../../connections/connection_db.php';
+include '../../connections/tgl_indo.php';
 session_start();
 date_default_timezone_set('Asia/Jakarta');
 
@@ -31,6 +32,7 @@ if (isset($_REQUEST['submit'])) {
 	$no_br=htmlspecialchars($_POST['no_surat']);
 	$pengirim=htmlspecialchars($_POST['pengirim']);
 	$perihal=htmlspecialchars($_POST['perihal']);
+	$tempat=$_POST['tempat'];
 
 	$ekstensi_boleh=array('pdf','jpg');
 	$namafile=$_FILES['file']['name'];
@@ -45,8 +47,9 @@ if (isset($_REQUEST['submit'])) {
 	Surat nomor *'.$no_br.'*,
 	dari : *'.$pengirim.'*,
 	Perihal : *'.$perihal.'*, 
-	Mulai pukul : *'.$start_event.'*,
-	sampai pukul : *'.$end_event.'*, 
+	Tempat : *'.$tempat.'*,
+	Mulai : *'.tgl_indo(date('D, d-m-Y H.i', strtotime($start_event))).'*,
+	sampai : *'.tgl_indo(date('D, d-m-Y H.i',strtotime($end_event))).'*, 
 	 #-- Harap segera diverifikasi ! --# ';
 	
 
@@ -69,7 +72,7 @@ if (isset($_REQUEST['submit'])) {
 				move_uploaded_file($namasementara, $dirUpload.$namabaru);
 				$query=mysqli_query($con,"insert into surat_masuk values ('','$no_br','$tgl_srt','$pengirim','$perihal','$type','0') ");
 				$queryfile=mysqli_query($con,"insert into file values ('','$no_br','$namabaru','$tgl_diterima')");
-				$queryacara=mysqli_query($con,"insert into acara values ('','$no_br','$start_event','$end_event')");
+				$queryacara=mysqli_query($con,"insert into acara values ('','$no_br','$tempat','$start_event','$end_event')");
 				if ($queryfile) {
               # code...
 					$_SESSION['success']='<div class="alert alert-success alert-dismissible fade show" role="alert">

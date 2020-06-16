@@ -24,13 +24,13 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">Username</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="nama" required="">
+                                    <input type="text" class="form-control" name="nama" required="" placeholder="Masukkan Username">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" name="pass" required="">
+                                    <input type="password" class="form-control" name="pass" required="" placeholder="Masukkan Password">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -83,3 +83,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
+

@@ -6,9 +6,9 @@ $no=1;
 ?>
 <h3 align="center">Data Disposisi</h3><br>
 <p align="center">Dari Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_f))); ?></b> Sampai Tanggal <b><?php echo tgl_indo(date('D d-m-Y',strtotime($tgl_2))); ?></b></p>
-<table class="table table-dark table-striped">
+<table border="2">
 	<thead>
-		<tr style="text-align: center;">
+		<tr>
 			<th scope="row">No</th>
 			<th>No Surat</th>
 			<th>Pengirim</th>
@@ -29,7 +29,7 @@ $no=1;
 				<td><?php echo $d['no_surat']; ?></td>
 				<td><?php echo $d['pengirim']; ?></td>
 				<td><?php echo $d['perihal']; ?></td>
-				<td><?php echo date('Y-m-d',strtotime($tgl)) ?></td>
+				<td><?php echo tgl_indo(date('D, d-m-Y',strtotime($tgl))) ?></td>
 				<td><?php echo $d['penerima']; ?></td>
 				<td><?php echo $d['catatan']; ?></td>
 			</tr>
@@ -41,3 +41,4 @@ $no=1;
 
 
 	<?php include_once '../../assets/tutup_surat.php'; ?>
+	<script> window.print(); </script>

@@ -97,3 +97,4 @@ while ($data=mysqli_fetch_array($sql)) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 </body>
 </html>
+<script> window.print(); </script>

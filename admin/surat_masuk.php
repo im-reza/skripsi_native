@@ -20,6 +20,9 @@
           </div>
         </div>
         <div class="page-title-actions">
+          <a href="#" data-target="#lap_modal_sm" data-toggle="modal">
+            <button class="btn btn-primary">Cetak</button>
+          </a>
           <div class="d-inline-block dropdown">
             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-success">
               <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -56,7 +59,6 @@
 
     <div class="main-card mb-3 card">
       <div class="card-body">
-
         <?php if (isset($_SESSION['success'])) {
           echo "".$_SESSION['success']."";
         }elseif (isset($_SESSION['failed'])) {
@@ -86,16 +88,19 @@
         unset($_SESSION['success_edit']);
         unset($_SESSION['failed_edit']);
         ?>
-
-        <h5 class="card-title">
-          <div class="search-wrapper">
-            <div class="input-holder">
-              <input type="text" class="search-input" id="cari_sm" placeholder="Type to search">
-              <button class="search-icon"><span></span></button>
-            </div>
-            <button class="close"></button>
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="card-title">
+              <div class="search-wrapper">
+                <div class="input-holder">
+                  <input type="text" class="search-input" id="cari_sm" placeholder="Type to search">
+                  <button class="search-icon"><span></span></button>
+                </div>
+                <button class="close"></button>
+              </div>
+            </h5>
           </div>
-        </h5>
+        </div>
 
 
         <!-- tabel surat masuk load data dengan ajax -->
@@ -150,20 +155,40 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label><strong>Nomor Surat :</strong></label>
-              <input type="text" class="form-control" name="no_surat" id="no_surat" placeholder="Nomor Berkas..." required>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                </div>
+                <input type="text" class="form-control" name="no_surat" id="no_surat" placeholder="Nomor Berkas..." required>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <label><strong>Tanggal di surat :</strong></label>
-              <input type="date" class="date form-control" name="tgl_surat" id="tgl_surat" value="<?php echo date('Y-m-d') ?>" required="">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+                </div>
+                <input type="date" class="date form-control" name="tgl_surat" id="tgl_surat" value="<?php echo date('Y-m-d') ?>" required="">
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label><strong>Pengirim :</strong></label>
-            <input type="text"class="form-control" name="pengirim" id="pengirim" placeholder="Pengirim..." required>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+              </div>
+              <input type="text"class="form-control" name="pengirim" id="pengirim" placeholder="Pengirim..." required>
+            </div>
           </div>
           <div class="form-group">
             <label><strong>Perihal surat :</strong></label>
-            <input type="text"class="form-control" name="perihal" id="perihal" placeholder="Perihal..." required>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-info"></i></span>
+              </div>
+              <input type="text"class="form-control" name="perihal" id="perihal" placeholder="Perihal..." required>
+            </div>
           </div>
           <div class="form-group col-md-6" hidden="">
             <input type="text" class="form-control" name="type_surat" id="type_surat" value="pemberitahuan" required="">
@@ -200,30 +225,69 @@ aria-hidden="true">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label><strong>Nomor Surat Undangan :</strong></label>
-            <input type="text" class="form-control" name="no_surat" id="no_surat_u" placeholder="Nomor Berkas..." required>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+              </div>
+              <input type="text" class="form-control" name="no_surat" id="no_surat_u" placeholder="Nomor Berkas..." required>
+            </div>
           </div>
           <div class="form-group col-md-6">
             <label><strong>Tanggal di surat :</strong></label>
-            <input type="date" class="date form-control" name="tgl_surat" id="tgl_surat_u" value="<?php echo date('Y-m-d') ?>" required="">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+              </div>
+              <input type="date" class="date form-control" name="tgl_surat" id="tgl_surat_u" value="<?php echo date('Y-m-d') ?>" required="">
+            </div>
           </div>
         </div>
         <div class="form-group">
           <label><strong>Pengirim Undangan :</strong></label>
-          <input type="text"class="form-control" name="pengirim" id="pengirim_u" placeholder="Pengirim..." required>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+            </div>
+            <input type="text"class="form-control" name="pengirim" id="pengirim_u" placeholder="Pengirim..." required>
+          </div>
         </div>
         <div class="form-group">
           <label><strong>Perihal Undangan :</strong></label>
-          <input type="text"class="form-control" name="perihal" id="perihal_u" placeholder="Perihal..." required>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-info"></i></span>
+            </div>
+            <input type="text"class="form-control" name="perihal" id="perihal_u" placeholder="Perihal..." required>
+          </div>
         </div>
         <label><strong>Acara :</strong></label>
+        <div class="form-group">
+          <label><strong>Tempat :</strong></label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+            <input type="text"class="form-control" name="tempat" id="tempat_u" placeholder="Tempat..." required>
+          </div>
+        </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label><strong>Mulai :</strong></label>
-            <input type="datetime-local" class="form-control" name="start_event" id="start_u" required>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="form-control" name="start_event" id="start_u" required>
+            </div>
           </div>
           <div class="form-group col-md-6">
             <label><strong>Sampai :</strong></label>
-            <input type="datetime-local" class="date form-control" name="end_event" id="end_u" required="">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="date form-control" name="end_event" id="end_u" required="">
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -326,6 +390,10 @@ aria-hidden="true">
             </div>
           </div>
           <label><strong>Acara :</strong></label>
+          <div class="form-group">
+            <label><strong>Tempat :</strong></label>
+            <input type="text"class="form-control" name="tempat_edt" id="tempat_u_edt" placeholder="Tempat..." required>
+          </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label><strong>Mulai :</strong></label>
@@ -525,12 +593,12 @@ aria-hidden="true">
 
 <script>
   $(document).on('click','.btn_edit_u',function(){
-    var no=$(this).attr("id");
+    var nos=$(this).attr("id");
     $.ajax({
-      url:"edit_sm.php",
+      url:"edit_sm_u.php",
       method:"POST",
       data:{
-        no:no
+        no:nos
       },
       dataType:"json",
       success:function(data){
@@ -539,6 +607,7 @@ aria-hidden="true">
         $('#tgl_surat_edt_u').val(data.tgl_surat);
         $('#pengirim_u_edt').val(data.pengirim);
         $('#perihal_u_edt').val(data.perihal);
+        $('#tempat_u_edt').val(data.tempat);
         $('#file_lama_edt_u').text(data.nama_file);
         $('#edit_modal_u').modal('show');
         console.log(data);

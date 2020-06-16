@@ -9,6 +9,7 @@ if (isset($_REQUEST['submit'])) {
 	$no_br=$_POST['no_surat_edt'];
 	$pengirim=htmlspecialchars($_POST['pengirim_edt']);
 	$perihal=htmlspecialchars($_POST['perihal_edt']);
+	$tempat=$_POST['tempat_edt'];
 	$tgl=date("Y-m-d H:i:s");
 	$start_event=date('Y-m-d H:i',strtotime($_POST['start_event_edt']));
 	$end_event=date('Y-m-d H:i',strtotime($_POST['end_event_edt']));
@@ -26,7 +27,7 @@ if (isset($_REQUEST['submit'])) {
 	if ($namafile=='') {
 		$query_p=mysqli_query($con,"UPDATE surat_masuk SET tgl_surat='$tgl_srt',pengirim='$pengirim',perihal='$perihal',type_surat='$type' where id_sm='$id' ");
 		$queryfile=mysqli_query($con,"UPDATE file SET tgl_masuk='$tgl' where no_surat='$no_br' ");
-		$query_u=mysqli_query($con,"UPDATE acara SET start_event='$start_event',end_event='$end_event' where no_surat='$no_br' ");
+		$query_u=mysqli_query($con,"UPDATE acara SET tempat='$tempat',start_event='$start_event',end_event='$end_event' where no_surat='$no_br' ");
 		$_SESSION['success_edit']='<div class="alert alert-info alert-dismissible fade show" role="alert">
 		Berhasil mengedit data dan file '.$no_br.' !
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -46,7 +47,7 @@ if (isset($_REQUEST['submit'])) {
 				move_uploaded_file($namasementara, $dirUpload.$namabaru);
 				$queryfile=mysqli_query($con,"UPDATE file SET nama_file='$namabaru',tgl_masuk='$tgl' where no_surat='$no_br' ");
 				$query=mysqli_query($con,"UPDATE surat_masuk SET tgl_surat='$tgl_srt',pengirim='$pengirim',perihal='$perihal',type_surat='$type' where id_sm='$id' ");
-				$query_uc=mysqli_query($con,"UPDATE acara SET start_event='$start_event',end_event='$end_event' where no_surat='$no_br' ");
+				$query_uc=mysqli_query($con,"UPDATE acara SET tempat='$tempat',start_event='$start_event',end_event='$end_event' where no_surat='$no_br' ");
 				if ($query_uc) {
 					$_SESSION['success_edit']='<div class="alert alert-info alert-dismissible fade show" role="alert">
 					Berhasil mengedit data dan file '.$no_br.' !

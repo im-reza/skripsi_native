@@ -1,3 +1,108 @@
+.bell{
+  display:block;
+  -webkit-animation: ring 4s .7s ease-in-out infinite;
+  -webkit-transform-origin: 50% 4px;
+  -moz-animation: ring 4s .7s ease-in-out infinite;
+  -moz-transform-origin: 50% 4px;
+  animation: ring 4s .7s ease-in-out infinite;
+  transform-origin: 50% 4px;
+}
+@-webkit-keyframes ring {
+  0% { -webkit-transform: rotateZ(0); }
+  1% { -webkit-transform: rotateZ(30deg); }
+  3% { -webkit-transform: rotateZ(-28deg); }
+  5% { -webkit-transform: rotateZ(34deg); }
+  7% { -webkit-transform: rotateZ(-32deg); }
+  9% { -webkit-transform: rotateZ(30deg); }
+  11% { -webkit-transform: rotateZ(-28deg); }
+  13% { -webkit-transform: rotateZ(26deg); }
+  15% { -webkit-transform: rotateZ(-24deg); }
+  17% { -webkit-transform: rotateZ(22deg); }
+  19% { -webkit-transform: rotateZ(-20deg); }
+  21% { -webkit-transform: rotateZ(18deg); }
+  23% { -webkit-transform: rotateZ(-16deg); }
+  25% { -webkit-transform: rotateZ(14deg); }
+  27% { -webkit-transform: rotateZ(-12deg); }
+  29% { -webkit-transform: rotateZ(10deg); }
+  31% { -webkit-transform: rotateZ(-8deg); }
+  33% { -webkit-transform: rotateZ(6deg); }
+  35% { -webkit-transform: rotateZ(-4deg); }
+  37% { -webkit-transform: rotateZ(2deg); }
+  39% { -webkit-transform: rotateZ(-1deg); }
+  41% { -webkit-transform: rotateZ(1deg); }
+
+  43% { -webkit-transform: rotateZ(0); }
+  100% { -webkit-transform: rotateZ(0); }
+}
+.indicator {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 20px;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: #ef172c;
+    animation: .9s infinite beatHeart;
+    transform-origin: center;
+}
+.indicator_user_online {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: 16px;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    background-color: #26D07C;
+    transform-origin: center;
+}
+.indicator_user_busy {
+    content: '';
+    position: absolute;
+    top: 32px;
+    right: 16px;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    animation: .9s infinite beatHeart;
+    background-color: red;
+    transform-origin: center;
+}
+.indicator_n {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+    background-color: #ef172c;
+    animation: .9s infinite beatHeart;
+    transform-origin: center;
+}
+
+@keyframes beatHeart {
+    0% {
+        transform: scale(0.9);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    40% {
+        transform: scale(0.9);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(0.9);
+    }
+}
 .status-circle {
   width: 15px;
   height: 15px;
@@ -86,7 +191,7 @@ input:checked + .slider:before {
 	transform     : translateX(50%);
 	border-radius : 50%;
 	background    : #ccc;
-	border        : 1px #ccc solid;
+	border        : 1px #16aaff solid;
 	width         : .8em;
 	height        : .8em;
 }
@@ -103,7 +208,7 @@ input:checked + .slider:before {
 	z-index     : 1;
 	left        : 0;
 	height      : 100%;
-	border-left : 1px #ccc solid;
+	border-left : 1px #000 solid;
 }
 
 .events strong {
@@ -5578,11 +5683,23 @@ a.badge:focus {
 }
 .button__badge {
 	background-color: #fa3e3e;
-	border-radius: 2px;
+	border-radius: 12px;
 	color: white;
 
-	padding: 1px 3px;
-	font-size: 10px;
+	padding: 0.1px 3px;
+	font-size: 7px;
+
+	position: absolute; /* Position the badge within the relatively positioned button */
+	top: 0;
+	right: 12px;
+}
+.button__badge_list {
+	background-color: #fa3e3e;
+	border-radius: 4px;
+	color: white;
+
+	padding: 0px 6px;
+	font-size: 12px;
 
 	position: absolute; /* Position the badge within the relatively positioned button */
 	top: 0;
@@ -15652,7 +15769,6 @@ a.badge-alternate:focus {
 	font-size: 1rem;
 	width: 30px;
 	text-align: center;
-	opacity: .45;
 	margin-left: -10px
 }
 
