@@ -61,9 +61,7 @@
 						?>
 					</td>
 					<td style="text-align: center;">
-						<?php if ($_SESSION['name']==$d['pembuat']){
-							echo "<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";
-						}elseif ($_SESSION['name']=='kabag') {
+						<?php if ($_SESSION['name']=='kabag') {
 							echo "<button class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";
 						}else{
 							echo "<button disabled='' class='btn btn-sm btn-danger' data-href='actions/aksi_hapus_sk.php?id=".$d['no_surat']."' data-toggle='modal' data-target='#delete_modal'><span class='fas fa-trash-alt'></span></button>";

@@ -110,7 +110,7 @@
             </select>
             <div class="form-group mt-2">
              <label><strong>Catatan :</strong></label>
-             <textarea class="form-control" name="catatan" rows="3" required=""></textarea>
+             <textarea class="form-control" name="catatan" rows="3" required="" placeholder="Harap diisi..."></textarea>
            </div>
          </div>
          <div class="modal-footer">

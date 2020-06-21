@@ -1,3 +1,6 @@
+<?php     include 'connections/connection_db.php'; 
+    session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +22,12 @@
                 <div class="card">
                     <div class="card-header">Login</div>
                     <div class="card-body">
+                        <?php if (isset($_SESSION['no_login'])) {
+                            echo "".$_SESSION['no_login']."";
+                            session_destroy();
+                        }
+                        unset($_SESSION['no_login']);
+                        ?>
                         <form method="POST" action="">
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">Username</label>
@@ -48,8 +57,6 @@
     </div>
 
     <?php 
-    include 'connections/connection_db.php'; 
-    session_start();
 
     if (isset($_POST['submit'])) {
         # code...
@@ -67,6 +74,12 @@
                 header("location:admin/index.php");
             }              
         }else{
+            $_SESSION['no_login']='<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Username dan Password salah
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>';
             return false;
         }
     }

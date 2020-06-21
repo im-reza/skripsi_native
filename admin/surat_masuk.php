@@ -24,34 +24,37 @@
             <button class="btn btn-primary">Cetak</button>
           </a>
           <div class="d-inline-block dropdown">
-            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-success">
-              <span class="btn-icon-wrapper pr-2 opacity-7">
-                <i class="fas fa-pencil-alt fa-w-20"></i>
+            <?php if ($_SESSION['name']=='admin'){
+              echo " <button type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' class='btn-shadow dropdown-toggle btn btn-success'>
+              <span class='btn-icon-wrapper pr-2 opacity-7'>
+              <i class='fas fa-pencil-alt fa-w-20'></i>
               </span>
               Add
-            </button>
-            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a href='#' data-target="#tambah_modal_sm_pemberitahuan" data-toggle="modal" class="nav-link">
-                    <i class="nav-link-icon lnr-inbox"></i>
-                    <span>
-                      Surat Pemberitahuan
-                    </span>
-                    <div class="ml-auto badge badge-pill badge-success"></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href='#' data-target="#tambah_modal_sm_undangan" data-toggle="modal" class="nav-link">
-                    <i class="nav-link-icon lnr-book"></i>
-                    <span>
-                      Surat Undangan
-                    </span>
-                    <div class="ml-auto badge badge-pill badge-success"></div>
-                  </a>
-                </li>
+              </button>
+              <div tabindex='-1' role='menu' aria-hidden='true' class='dropdown-menu dropdown-menu-right'>
+              <ul class='nav flex-column'>
+              <li class='nav-item'>
+              <a href='#' data-target='#tambah_modal_sm_pemberitahuan' data-toggle='modal' class='nav-link'>
+              <i class='nav-link-icon lnr-inbox'></i>
+              <span>
+              Surat Pemberitahuan
+              </span>
+              <div class='ml-auto badge badge-pill badge-success'></div>
+              </a>
+              </li>
+              <li class='nav-item'>
+              <a href='#' data-target='#tambah_modal_sm_undangan' data-toggle='modal' class='nav-link'>
+              <i class='nav-link-icon lnr-book'></i>
+              <span>
+              Surat Undangan
+              </span>
+              <div class='ml-auto badge badge-pill badge-succes'></div>
+              </a>
+              </li>
               </ul>
-            </div>
+              </div>";
+            } ?>
+
           </div>
         </div>
       </div>
